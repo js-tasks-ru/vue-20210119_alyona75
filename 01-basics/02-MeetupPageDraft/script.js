@@ -15,6 +15,12 @@ function getMeetupCoverLink(meetup) {
   return `${API_URL}/images/${meetup.imageId}`;
 }
 
+function fetchMeetup(meetupId) {
+  return fetch(`${API_URL}/meetups/${meetupId}`).then(res => res.json());
+}
+
+// const fetchMeetup = () => fetch(`${API_URL}/meetups/${MEETUP_ID}`).then(res => res.json());
+
 /**
  * Словарь заголовков по умолчанию для всех типов элементов программы
  */
@@ -44,23 +50,52 @@ const agendaItemIcons = {
   other: 'cal-sm',
 };
 
+const getDateOnlyString = (date) => {
+  const YYYY = date.getUTCFullYear();
+  const MM = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+  const DD = date.getUTCDate().toString().padStart(2, '0');
+  return `${YYYY}-${MM}-${DD}`;
+};
+
 export const app = new Vue({
   el: '#app',
 
   data: {
-    //
+    currentMeetup: {},
   },
 
   mounted() {
-    // Требуется получить данные митапа с API
+    fetchMeetup(MEETUP_ID).then(meetup => {
+      this.currentMeetup = meetup;
+      console.log(this.currentMeetup);
+    })
   },
 
   computed: {
-    //
+    meetup() {
+      if(!this.currentMeetup) return null;
+      return {
+        ...this.currentMeetup,
+        coverStyle: this.currentMeetup.imageId ? {
+              '--bg-url': `url('${getMeetupCoverLink(this.currentMeetup)}')`,
+            } : null,
+        localDate: new Date(this.currentMeetup.date).toLocaleString(navigator.language, {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+        dateOnlyString: getDateOnlyString(new Date(this.currentMeetup.date)),
+      }
+    },
+
+    meetupAgenda() {
+      return this.currentMeetup.agenda.map((agenda) => ({
+        ...agenda,
+        icon: `/assets/icons/icon-${agendaItemIcons[agenda.type]}.svg`,
+        title: agenda.title || agendaItemTitles[agenda.type],
+        timeline: `${agenda.startsAt} - ${agenda.endsAt}`
+      }));
+    }
   },
 
-  methods: {
-    // Получение данных с API предпочтительнее оформить отдельным методом,
-    // а не писать прямо в mounted()
-  },
 });
