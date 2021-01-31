@@ -5,7 +5,6 @@ export const MeetupAgenda = {
 
   template: `
     <div class="meetup-agenda">
-      <div class="meetup-agenda__item"></div>
       <MeetupAgendaItem v-for="item in agenda" :agendaItem="item" :key="item.id"/>
     </div>`,
 

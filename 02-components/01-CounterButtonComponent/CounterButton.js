@@ -1,12 +1,6 @@
 export const CounterButton = {
   template: '<button type="button" @click="increment">{{count}}</button>',
 
-  data() {
-    return {
-    curCount: this.count,
-    }
-  },
-
   props: {
     count: {
       type: Number,
@@ -21,7 +15,7 @@ export const CounterButton = {
 
   methods: {
     increment() {
-      this.$emit('increment', ++this.curCount);
+      this.$emit('increment', this.count + 1);
     }
   },
 };
