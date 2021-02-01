@@ -61,13 +61,12 @@ export const app = new Vue({
   el: '#app',
 
   data: {
-    currentMeetup: {},
+    currentMeetup: null,
   },
 
   mounted() {
     fetchMeetup(MEETUP_ID).then(meetup => {
       this.currentMeetup = meetup;
-      console.log(this.currentMeetup);
     })
   },
 
