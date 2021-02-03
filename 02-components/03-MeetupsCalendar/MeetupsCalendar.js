@@ -11,12 +11,12 @@ export const MeetupsCalendar = {
       <div class="rangepicker__month-indicator">
         <div class="rangepicker__selector-controls">
           <button class="rangepicker__selector-control-left" @click="prevMonth"></button>
-          <div>{{getDateCalendar.month}} {{getDateCalendar.year}}</div>
+          <div>{{dateCalendar.month}} {{dateCalendar.year}}</div>
           <button class="rangepicker__selector-control-right" @click="nextMonth"></button>
         </div>
       </div>
       <div class="rangepicker__date-grid">
-        <div v-for="day in createCalendar" class="rangepicker__cell"
+        <div v-for="day in calendar" class="rangepicker__cell"
         :class="day.state == 'cur'  ? '' : 'rangepicker__cell_inactive'">
           {{day.day}}
           <a v-for="meetup in day.meetups" class="rangepicker__event">
@@ -41,7 +41,7 @@ export const MeetupsCalendar = {
   computed: {
     //получение текущего года, месяца
     //получение кол-ва дней в текущем месяце, дней до текущего месяца, кол-ва дней в предыдущем месяце 
-    getDateCalendar() {
+    dateCalendar() {
       return {
         year: this.date.getFullYear(),
         month: this.date.toLocaleString(navigator.language, {month: 'long' }),
@@ -52,7 +52,7 @@ export const MeetupsCalendar = {
     },
     
     //создание календаря предыдущие + текущие + следующие дни
-    createCalendar() {
+    calendar() {
       let days = [];
 
       for(let i = 0; i < this.getDaysMonthBefore().length; i++){
@@ -62,7 +62,7 @@ export const MeetupsCalendar = {
         });
       }
       
-      for(let i = 1; i <= this.getDateCalendar.monthDays; i++) {
+      for(let i = 1; i <= this.dateCalendar.monthDays; i++) {
         days.push({
           day: i,
           state: 'cur',
@@ -97,15 +97,15 @@ export const MeetupsCalendar = {
     //получение днец предыдущего месяца в обратном порядке (для отображения)
     getDaysMonthBefore() {
       this.prevMonthDays = [];
-      for(let i = 0; i < this.getDateCalendar.daysBefore; i++) {
-        this.prevMonthDays.push(this.getDateCalendar.prevMonthDays - i); 
+      for(let i = 0; i < this.dateCalendar.daysBefore; i++) {
+        this.prevMonthDays.push(this.dateCalendar.prevMonthDays - i); 
       }
       return this.prevMonthDays.reverse();
     },
 
     //определение кол-ва дней в следующем месяце до конца недели
     daysNextMonth() {
-      let weekDay = new Date(this.getDateCalendar.year, this.date.getMonth(), this.getDateCalendar.monthDays);
+      let weekDay = new Date(this.dateCalendar.year, this.date.getMonth(), this.dateCalendar.monthDays);
       if(weekDay.getDay() != 0) return 7 - weekDay.getDay();
     },
 
