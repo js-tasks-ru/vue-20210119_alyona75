@@ -2,11 +2,11 @@
   <div class="content-tabs">
     <div class="content-tabs__nav"  > 
       <router-link 
-      v-for="tab in tabs" 
-      :key='tab.text' 
-      class="content-tabs__tab" 
-      active-class="content-tabs__tab_active"
-      :to='tab.to'>
+        v-for="tab in tabs" 
+        :key='tab.text' 
+        class="content-tabs__tab" 
+        active-class="content-tabs__tab_active"
+        :to='tab.to'>
       {{ tab.text }}
       </router-link> 
     </div>
