@@ -1,7 +1,9 @@
 <template>
-  <div class='page peage_meetup-forms container'>
-    <h2>{{title}}</h2>
-    <slot />
+  <div class="page page_meetup-forms">
+    <div class="container">
+      <h2 class="page__title">{{title}}</h2>
+      <slot />
+    </div>
   </div>
 </template>
 
