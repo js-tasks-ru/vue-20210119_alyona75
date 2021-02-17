@@ -1,9 +1,100 @@
-<template></template>
+<template>
+  <div class='header'>
+    <h1>MEETUPS</h1>
+    <nav>
+      <router-link v-for="link in links" 
+        :key='link.name' 
+        :to='link.to'> {{link.title}} </router-link> 
+    </nav>
+  </div>
+</template>
 
 <script>
 export default {
   name: 'TheHeader',
+  
+  data() {
+  return {
+    links: [
+      {to: {name: 'meetups'}, title: 'Митапы'}, 
+      {to: {name: 'form'}, title: 'Создать митап'}, 
+      {to: {name: 'login'}, title: 'Вход'}],
+    }
+  }
 };
+
 </script>
 
-<style scoped></style>
+<style scoped>
+.header {
+  padding: 44px 0 32px;
+  background-color: var(--white);
+}
+
+.header h1,
+.header h1 a {
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 0 24px;
+  text-transform: uppercase;
+  color: var(--body-color);
+  text-decoration: none;
+}
+
+.header nav {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 24px;
+}
+
+.header nav a {
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--body-color);
+  text-decoration: none;
+  padding: 0 20px;
+  position: relative;
+  display: inline-flex;
+}
+
+.header nav a + a {
+  margin-top: 8px;
+}
+
+.header nav a:hover {
+  color: var(--blue);
+}
+
+.header nav a:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(-2px, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--grey);
+}
+
+@media all and (min-width: 992px) {
+  .header nav {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0;
+  }
+
+  .header nav a,
+  .header nav a + a{
+    margin-top: 0;
+  }
+
+  .header nav a:first-child:before {
+    display: none;
+  }
+}
+</style>
