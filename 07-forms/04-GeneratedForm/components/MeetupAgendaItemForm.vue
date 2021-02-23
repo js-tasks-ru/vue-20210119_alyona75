@@ -34,8 +34,7 @@
       <component 
         :is='data.component' 
         v-bind='data.props'
-        v-model='agendaItem_[data.field]'
-        v-on:[data.model.event]='getEventHandler'
+        v-model='agendaItem_[data.field]'  
       />
     </form-group>
 
@@ -87,7 +86,7 @@ export default {
     agendaItem_: {
       deep: true,
       handler() {
-        this.getEventHandler();
+        this.$emit('update:agendaItem', { ...this.agendaItem_ });
       },
     },
   },
@@ -112,9 +111,6 @@ export default {
       this.agendaItem_.endsAt = `${hh}:${mm}`;
       this.agendaItem_.startsAt = newVal;
     },
-    getEventHandler(){
-      this.$emit('update:agendaItem', { ...this.agendaItem_ });
-    }
   }
 };
 </script>
