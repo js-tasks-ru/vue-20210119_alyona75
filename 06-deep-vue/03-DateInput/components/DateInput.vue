@@ -54,9 +54,6 @@ export default {
       return `${this.newDate}T${this.newTime}`;
     },
     newValue() {
-      if(this.valueAsDate && this.valueAsNumber) {
-        this.valueAsDate = null;
-      }
       if(this.valueAsDate || this.valueAsNumber) {
         switch(this.type){
           case 'date':

@@ -27,11 +27,6 @@ export default {
       }
     }
   },
-  watch: {
-    tag(newValue) {
-
-    }
-  }
 };
 </script>
 
