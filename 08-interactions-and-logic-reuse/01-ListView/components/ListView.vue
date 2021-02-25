@@ -1,12 +1,18 @@
 <template>
   <div class="meetups-list">
-    <!-- Требуется scoped-slot для каждого элемента списка -->
+    <template v-for="item in items">
+      <slot :item="item" />
+    </template>
   </div>
 </template>
 
 <script>
 export default {
   name: 'ListView',
+  
+  props: {
+    items: Array,
+  }
 };
 </script>
 
