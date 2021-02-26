@@ -14,12 +14,12 @@
     <hr />
 
     <app-pagination :page="page" :per-page="5" :items="cards">
-      <!-- item - параметр слота с данными одного элемента данных  -->
-      <!-- Вы можете использовать другое имя параметра слота -->
-      <fieldset :key="item.id">
-        <legend>Card #{{ item.id }}</legend>
-        {{ item.text }}
-      </fieldset>
+      <template v-slot:default="slots">
+        <fieldset :key="slots.item.id">
+          <legend>Card #{{ slots.item.id }}</legend>
+          {{ slots.item.text }}
+        </fieldset>
+      </template>
     </app-pagination>
   </div>
 </template>
