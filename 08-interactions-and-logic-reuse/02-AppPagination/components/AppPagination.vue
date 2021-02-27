@@ -17,8 +17,12 @@ export default {
   },
   computed: {
     itemsPage() {
-      return this.items ? this.items.filter((el, ind) => {
-        if(Math.ceil((ind + 1) / this.perPage) == this.page) return el}) : null;
+    let start = (this.page - 1) * this.perPage;
+    let end = this.page * this.perPage;
+    return this.items ? this.items.slice(start,end) : null;
+    //второе решение через filter
+      //return this.items ? this.items.filter((el, ind) => {
+        //if(Math.ceil((ind + 1) / this.perPage) == this.page) return el}) : null;
     }
   }
 };

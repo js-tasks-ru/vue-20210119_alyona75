@@ -5,18 +5,18 @@ export default {
   render(h) {
     let slots = this.$slots.default;
     slots = slots ? slots.map((el) => {
-      if (!el.data.class) el.data.class = {};
-      el.data.class['fade-list-item'] = true;
+      if (!el.data.staticClass) el.data.staticClass = '';
+      el.data.staticClass += ' fade-list-item';
       return el;
       }) : null;
 
     return h('transition-group', 
       {
         attrs: { ...this.$attrs, name: 'fade-list' },
-        listeners: this.$listeners,
         class: {
           'fade-list': true,
         },
+        ...this.$listeners,
       },
       slots,
     );
