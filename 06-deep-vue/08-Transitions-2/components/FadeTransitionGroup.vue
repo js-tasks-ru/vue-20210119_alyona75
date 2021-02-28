@@ -16,7 +16,7 @@ export default {
         class: {
           'fade-list': true,
         },
-        ...this.$listeners,
+        on: this.$listeners,
       },
       slots,
     );
