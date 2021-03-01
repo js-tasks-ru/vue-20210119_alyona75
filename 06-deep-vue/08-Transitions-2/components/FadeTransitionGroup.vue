@@ -1,6 +1,26 @@
 <script>
 export default {
   name: 'FadeTransitionGroup',
+
+  render(h) {
+    let slots = this.$slots.default;
+    slots = slots ? slots.map((el) => {
+      if (!el.data.staticClass) el.data.staticClass = '';
+      el.data.staticClass += ' fade-list-item';
+      return el;
+      }) : null;
+
+    return h('transition-group', 
+      {
+        attrs: { ...this.$attrs, name: 'fade-list' },
+        class: {
+          'fade-list': true,
+        },
+        on: this.$listeners,
+      },
+      slots,
+    );
+  }
 };
 </script>
 
